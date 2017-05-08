@@ -1,0 +1,84 @@
+<div class="row">
+
+  <div class="panel">
+    <button class="btn btn-default" ng-click="create()">Create game</button>
+  </div>
+
+  <div class="panel">
+    <div class="input-group">
+      <label class="input-group-addon" for="joinGameId">Game ID</label>
+      <input class="form-control" type="text" id="joinGameId" ng-model="joinGameId">
+    </div>
+    <button class="btn btn-default" ng-click="join(joinGameId)">Join game</button>
+  </div>
+
+  <div class="panel">
+    <dl class="dl-horizontal">
+      <dt>Your side</dt>
+      <dd>{{player}}</dd>
+
+      <dt>Game Id</dt>
+      <dd>{{game.id}}</dd>
+
+      <dt>Pits per player</dt>
+      <dd>{{game.pitsPerPlayer}}</dd>
+
+      <dt>Stones per pit</dt>
+      <dd>{{game.stonesPerPit}}</dd>
+
+      <dt>State</dt>
+      <dd>{{game.gameState}}</dd>
+
+      <dt>Next player to move</dt>
+      <dd>{{game.nextPlayer}}</dd>
+
+      <dt>Winning player</dt>
+      <dd>{{game.winningPlayer}}</dd>
+    </dl>
+
+    <button class="btn btn-default" ng-click="refresh()">Refresh game</button>
+  </div>
+
+</div>
+
+
+<div class="row marketing">
+  <h1>Game board</h1>
+
+  <em>Game creator plays on the NORTH side, joiner on the SOUTH.</em>
+
+  <table class="table table-bordered">
+
+    <tr>
+      <td data-ng-repeat="i in northIndexes(game)">
+        <div ng-if="player==='NORTH'">
+          <button class="btn btn-default" ng-click="sow(i)">{{game.pits[i]}}</button>
+        </div>
+        <div ng-if="player!=='NORTH'">
+          {{game.pits[i]}}
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>{{ game.pits[game.pitsPerPlayer] }}</td>
+
+      <td data-ng-repeat="i in emptyRange(game)"></td>
+
+      <td>{{ game.pits[2 * game.pitsPerPlayer + 1] }}</td>
+    </tr>
+
+    <tr>
+      <td data-ng-repeat="i in southIndexes(game)">
+      <div ng-if="player==='SOUTH'">
+        <button class="btn btn-default" ng-click="sow(i)">{{game.pits[i]}}</button>
+      </div>
+      <div ng-if="player!=='SOUTH'">
+        {{game.pits[i]}}
+      </div>
+      </td>
+    </tr>
+
+  </table>
+
+</div>

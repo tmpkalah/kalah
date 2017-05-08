@@ -1,0 +1,11 @@
+spring:
+    application:
+        name: kalah
+    jpa:
+        database: POSTGRESQL
+        show-sql: false
+        hibernate:
+            ddl-auto: create-drop
+    datasource:
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:postgresql://db:5432/kalah

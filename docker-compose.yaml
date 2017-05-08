@@ -1,0 +1,30 @@
+version: '2'
+services:
+  db:
+    image: postgres:9.6.2
+    environment:
+      - POSTGRES_USER=kalah
+      - POSTGRES_PASSWORD=kalahpass
+    ports:
+      - 5432:5432
+
+  backend:
+    image: kalah-backend
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_USERNAME=kalah
+      - SPRING_DATASOURCE_PASSWORD=kalahpass
+    links:
+      - db:db
+
+  frontend:
+    image: kalah-frontend
+    ports:
+      - 8888:80
+    depends_on:
+      - backend
+    links:
+      - backend:backend
